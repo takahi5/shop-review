@@ -1,0 +1,36 @@
+{
+  "expo": {
+    "name": "Blank Template (TypeScript)",
+    "slug": "shop-review-app",
+    "privacy": "public",
+    "sdkVersion": "36.0.0",
+    "platforms": ["ios", "android", "web"],
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "splash": {
+      "image": "./assets/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
+    },
+    "updates": {
+      "fallbackToCacheTimeout": 0
+    },
+    "assetBundlePatterns": ["**/*"],
+    "ios": {
+      "supportsTablet": true
+    },
+    "extra": {
+      "firebase": {
+        "apiKey": "AIzaSyBnXh2nCYZddU_OYKEipYhYNZF61P9CMxk",
+        "authDomain": "shop-review-dc102.firebaseapp.com",
+        "databaseURL": "https://shop-review-dc102.firebaseio.com",
+        "projectId": "shop-review-dc102",
+        "storageBucket": "shop-review-dc102.appspot.com",
+        "messagingSenderId": "294248723949",
+        "appId": "1:294248723949:web:a38d94a4650cbc296fa3e4",
+        "measurementId": "G-RNJWD24YDV"
+      }
+    }
+  }
+}
