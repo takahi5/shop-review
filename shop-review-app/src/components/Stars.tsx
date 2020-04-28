@@ -1,5 +1,5 @@
 import React from "react";
-import { View, StyleSheet } from "react-native";
+import { View, StyleSheet, Text } from "react-native";
 import { FontAwesome } from "@expo/vector-icons";
 
 type Props = {
@@ -36,6 +36,9 @@ export const Stars: React.FC<Props> = ({
         style={starStyle}
         name={score >= 5 ? "star" : score >= 4.5 ? "star-half-o" : "star-o"}
       />
+      <Text style={[styles.scoreText, textSize && { fontSize: textSize }]}>
+        {score}
+      </Text>
     </View>
   );
 };
