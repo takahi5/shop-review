@@ -8,7 +8,7 @@ import { AuthScreen } from "../screens/AuthScreen";
 export const AppNavigator = () => {
   // login user
   // TODO: ログインしたらuserをセットする
-  const user = { name: "hoge" };
+  const user = null;
 
   return (
     <NavigationContainer>
