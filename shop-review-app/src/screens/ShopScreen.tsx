@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useLayoutEffect } from "react";
 import { StyleSheet, SafeAreaView } from "react-native";
 /* components */
 import { ShopDetail } from "../components/ShopDetail";
@@ -14,6 +14,12 @@ type Props = {
 
 export const ShopScreen: React.FC<Props> = ({ navigation, route }: Props) => {
   const { shop } = route.params;
+
+  useLayoutEffect(() => {
+    navigation.setOptions({
+      title: shop.name,
+    });
+  }, [navigation, shop]);
 
   return (
     <SafeAreaView style={styles.container}>
