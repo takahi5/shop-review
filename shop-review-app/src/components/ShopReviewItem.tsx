@@ -1,28 +1,35 @@
 import React from "react";
-import { View, StyleSheet, Image, Text, Dimensions } from "react-native";
+import {
+  StyleSheet,
+  Image,
+  Text,
+  Dimensions,
+  TouchableOpacity,
+} from "react-native";
 /* types */
-import { Shop } from "../types/shop";
+import {Shop} from "../types/shop";
 /* components */
-import { Stars } from "./Stars";
+import {Stars} from "./Stars";
 
-const { width } = Dimensions.get("window");
+const {width} = Dimensions.get("window");
 const CONTAINER_WIDTH = width / 2;
 const PADDING = 16;
 const IMAGE_WIDTH = CONTAINER_WIDTH - PADDING * 2;
 
 type Props = {
   shop: Shop;
+  onPress: () => void;
 };
 
-export const ShopReviewItem: React.FC<Props> = ({ shop }: Props) => {
-  const { name, place, imageUrl, score } = shop;
+export const ShopReviewItem: React.FC<Props> = ({shop, onPress}: Props) => {
+  const {name, place, imageUrl, score} = shop;
   return (
-    <View style={styles.container}>
-      <Image source={{ uri: imageUrl }} style={styles.image} />
+    <TouchableOpacity style={styles.container} onPress={onPress}>
+      <Image source={{uri: imageUrl}} style={styles.image} />
       <Text style={styles.nameText}>{name}</Text>
       <Text style={styles.placeText}>{place}</Text>
       <Stars score={score} />
-    </View>
+    </TouchableOpacity>
   );
 };
 
