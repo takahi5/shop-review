@@ -1,5 +1,10 @@
 import React, { useEffect, useContext } from "react";
-import { StyleSheet, SafeAreaView, ActivityIndicator } from "react-native";
+import {
+  StyleSheet,
+  SafeAreaView,
+  ActivityIndicator,
+  Text,
+} from "react-native";
 import { signin } from "../lib/firebase";
 import { UserContext } from "../contexts/userContext";
 
@@ -17,6 +22,7 @@ export const AuthScreen: React.FC = () => {
   return (
     <SafeAreaView style={styles.container}>
       <ActivityIndicator size="large" />
+      <Text style={styles.text}>ログイン中...</Text>
     </SafeAreaView>
   );
 };
@@ -27,5 +33,10 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
     alignItems: "center",
     justifyContent: "center",
+  },
+  text: {
+    marginTop: 16,
+    fontSize: 12,
+    color: "#888",
   },
 });
