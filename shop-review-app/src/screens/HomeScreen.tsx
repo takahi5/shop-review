@@ -1,19 +1,19 @@
-import React, {useEffect, useState} from "react";
-import {StyleSheet, FlatList, SafeAreaView} from "react-native";
+import React, { useEffect, useState } from "react";
+import { StyleSheet, FlatList, SafeAreaView } from "react-native";
 /* lib */
-import {getShops} from "../lib/firebase";
+import { getShops } from "../lib/firebase";
 /* components */
-import {ShopReviewItem} from "../components/ShopReviewItem";
+import { ShopReviewItem } from "../components/ShopReviewItem";
 /* types */
-import {Shop} from "../types/shop";
-import {StackNavigationProp} from "@react-navigation/stack";
-import {RootStackParamList} from "../types/navigation";
+import { Shop } from "../types/shop";
+import { StackNavigationProp } from "@react-navigation/stack";
+import { RootStackParamList } from "../types/navigation";
 
 type Props = {
   navigation: StackNavigationProp<RootStackParamList, "Home">;
 };
 
-export const HomeScreen: React.FC<Props> = ({navigation}: Props) => {
+export const HomeScreen: React.FC<Props> = ({ navigation }: Props) => {
   const [shops, setShops] = useState<Shop[]>([]);
 
   useEffect(() => {
@@ -33,7 +33,7 @@ export const HomeScreen: React.FC<Props> = ({navigation}: Props) => {
     <SafeAreaView style={styles.container}>
       <FlatList
         data={shops}
-        renderItem={({item}: {item: Shop}) => (
+        renderItem={({ item }: { item: Shop }) => (
           <ShopReviewItem shop={item} onPress={onPressShop} />
         )}
         keyExtractor={(item, index) => index.toString()}
