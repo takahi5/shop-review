@@ -10,9 +10,28 @@ import { RootStackParamList } from "../types/navigation";
 
 const Tab = createBottomTabNavigator<RootStackParamList>();
 
+const screenOptions = ({ route }) => ({
+  tabBarIcon: ({ focused, color, size }) => {
+    let iconName;
+
+    if (route.name === "Home") {
+      iconName = "home";
+    } else if (route.name === "User") {
+      iconName = "user";
+    }
+
+    return <Feather name={iconName} size={size} color={color} />;
+  },
+});
+
+const tabBarOptions = {
+  activeTintColor: "#900",
+  inactiveTintColor: "#999",
+};
+
 export const MainTabNavigator = () => {
   return (
-    <Tab.Navigator>
+    <Tab.Navigator screenOptions={screenOptions} tabBarOptions={tabBarOptions}>
       <Tab.Screen name="Home" component={HomeStackNavigator} />
       <Tab.Screen name="User" component={UserScreen} />
     </Tab.Navigator>
