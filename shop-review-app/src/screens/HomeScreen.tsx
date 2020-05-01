@@ -25,8 +25,8 @@ export const HomeScreen: React.FC<Props> = ({ navigation }: Props) => {
     setShops(shops);
   };
 
-  const onPressShop = () => {
-    navigation.navigate("Shop");
+  const onPressShop = (shop: Shop) => {
+    navigation.navigate("Shop", { shop });
   };
 
   return (
@@ -34,7 +34,7 @@ export const HomeScreen: React.FC<Props> = ({ navigation }: Props) => {
       <FlatList
         data={shops}
         renderItem={({ item }: { item: Shop }) => (
-          <ShopReviewItem shop={item} onPress={onPressShop} />
+          <ShopReviewItem shop={item} onPress={() => onPressShop(item)} />
         )}
         keyExtractor={(item, index) => index.toString()}
         numColumns={2}
