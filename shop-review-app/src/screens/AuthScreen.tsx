@@ -5,7 +5,8 @@ import { signin } from "../lib/firebase";
 export const AuthScreen: React.FC = () => {
   useEffect(() => {
     const fetchUser = async () => {
-      await signin();
+      const user = await signin();
+      console.log(user);
     };
     fetchUser();
   }, []);
