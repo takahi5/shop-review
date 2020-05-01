@@ -1,31 +1,21 @@
-import React, {useState} from "react";
-import {NavigationContainer} from "@react-navigation/native";
-import {createStackNavigator} from "@react-navigation/stack";
-/* firebase */
-import firebase from "firebase";
-import "firebase/auth";
-/* navigator */
-import HomeStackNavigator from "./HomeStackNavigator";
-import AuthStackNavigator from "./AuthStackNavigator";
+import React from "react";
+import { NavigationContainer } from "@react-navigation/native";
+import { createStackNavigator } from "@react-navigation/stack";
+/* screens */
+import { HomeScreen } from "../screens/HomeScreen";
 
 const Stack = createStackNavigator();
 
 const AppNavigator = () => {
-  const [isSignin, setIsSignin] = useState<boolean>(false);
-
-  firebase.auth().onAuthStateChanged((user) => {
-    if (!!user) {
-      //setIsSignin(true);
-    }
-  });
-
   return (
     <NavigationContainer>
-      {isSignin ? (
-        <HomeStackNavigator />
-      ) : (
-        <AuthStackNavigator />
-      )}
+      <Stack.Navigator>
+        <Stack.Screen
+          name="Home"
+          component={HomeScreen}
+          options={{ headerShown: false }}
+        />
+      </Stack.Navigator>
     </NavigationContainer>
   );
 };
