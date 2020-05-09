@@ -5,6 +5,7 @@ import { IconButton } from "../components/IconButton";
 import { TextArea } from "../components/TextArea";
 import { StarInput } from "../components/StarInput";
 import { Button } from "../components/Button";
+import { Loading } from "../components/Loading";
 import firebase from "firebase";
 import { addReview } from "../lib/firebase";
 /*contexts*/
@@ -27,6 +28,7 @@ export const CreateReviewScreen: React.FC<Props> = ({
   const { shop } = route.params;
   const [text, setText] = useState<string>("");
   const [score, setScore] = useState<number>(3);
+  const [loading, setLoading] = useState<boolean>(false);
   const { user } = useContext(UserContext);
 
   useEffect(() => {
@@ -39,6 +41,7 @@ export const CreateReviewScreen: React.FC<Props> = ({
   }, [shop]);
 
   const onSubmit = async () => {
+    setLoading(true);
     // firestoreに保存する
     const review = {
       user: {
@@ -54,6 +57,7 @@ export const CreateReviewScreen: React.FC<Props> = ({
     } as Review;
     await addReview(shop.id, review);
 
+    setLoading(false);
     navigation.goBack();
   };
 
@@ -68,6 +72,7 @@ export const CreateReviewScreen: React.FC<Props> = ({
       />
       <StarInput score={score} onChangeScore={(value) => setScore(value)} />
       <Button text="レビューを投稿する" onPress={onSubmit} />
+      <Loading visible={loading} />
     </SafeAreaView>
   );
 };
