@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useContext } from "react";
-import { StyleSheet, SafeAreaView } from "react-native";
+import { StyleSheet, SafeAreaView, View } from "react-native";
 /* components */
 import { IconButton } from "../components/IconButton";
 import { TextArea } from "../components/TextArea";
@@ -63,6 +63,7 @@ export const CreateReviewScreen: React.FC<Props> = ({
 
   return (
     <SafeAreaView style={styles.container}>
+      <StarInput score={score} onChangeScore={(value) => setScore(value)} />
       <TextArea
         value={text}
         onChangeText={(value) => {
@@ -71,7 +72,9 @@ export const CreateReviewScreen: React.FC<Props> = ({
         label="レビュー"
         placeholder="レビューを書いて下さい"
       />
-      <StarInput score={score} onChangeScore={(value) => setScore(value)} />
+      <View style={styles.photoContainer}>
+        <IconButton onPress={() => {}} name="camera" color="gray" />
+      </View>
       <Button text="レビューを投稿する" onPress={onSubmit} />
       <Loading visible={loading} />
     </SafeAreaView>
@@ -82,5 +85,8 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#fff",
+  },
+  photoContainer: {
+    margin: 8,
   },
 });
