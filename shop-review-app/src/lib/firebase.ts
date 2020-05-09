@@ -17,7 +17,9 @@ export const getShops = async () => {
       .collection("shops")
       .orderBy("score", "desc")
       .get();
-    const shops = snapshot.docs.map((doc) => doc.data() as Shop);
+    const shops = snapshot.docs.map(
+      (doc) => ({ ...doc.data(), id: doc.id } as Shop),
+    );
     return shops;
   } catch (err) {
     console.log(err);
