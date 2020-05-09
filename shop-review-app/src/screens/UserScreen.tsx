@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { StyleSheet, SafeAreaView, Text } from "react-native";
 /* components */
 import { Form } from "../components/Form";
+import { Button } from "../components/Button";
 /* types */
 import { StackNavigationProp } from "@react-navigation/stack";
 import { RootStackParamList } from "../types/navigation";
@@ -18,6 +19,7 @@ export const UserScreen: React.FC<Props> = ({ navigation, route }: Props) => {
   return (
     <SafeAreaView style={styles.container}>
       <Form value={name} onChangeText={(text) => setName(text)} label="名前" />
+      <Button onPress={() => {}} text="保存する" />
     </SafeAreaView>
   );
 };
