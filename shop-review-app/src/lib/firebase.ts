@@ -5,6 +5,7 @@ import Constants from "expo-constants";
 /* types */
 import { Shop } from "../types/shop";
 import { initialUser, User } from "../types/user";
+import { Review } from "../types/review";
 
 if (!firebase.apps.length) {
   firebase.initializeApp(Constants.manifest.extra.firebase);
@@ -47,4 +48,13 @@ export const signin = async () => {
 
 export const updateUser = async (userId: string, params: any) => {
   await firebase.firestore().collection("users").doc(userId).update(params);
+};
+
+export const addReview = async (shopId: string, review: Review) => {
+  await firebase
+    .firestore()
+    .collection("shops")
+    .doc(shopId)
+    .collection("reviews")
+    .add(review);
 };
