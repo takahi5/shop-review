@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { StyleSheet, SafeAreaView, Text } from "react-native";
 /* components */
 import { Form } from "../components/Form";
@@ -13,9 +13,11 @@ type Props = {
 };
 
 export const UserScreen: React.FC<Props> = ({ navigation, route }: Props) => {
+  const [name, setName] = useState<string>("");
+
   return (
     <SafeAreaView style={styles.container}>
-      <Form value={""} onChangeText={() => {}} label="名前" />
+      <Form value={name} onChangeText={(text) => setName(text)} label="名前" />
     </SafeAreaView>
   );
 };
