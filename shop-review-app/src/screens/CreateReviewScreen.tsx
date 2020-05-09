@@ -1,4 +1,4 @@
-import React, { useLayoutEffect } from "react";
+import React, { useEffect } from "react";
 import { StyleSheet, SafeAreaView, Text } from "react-native";
 /* components */
 import { IconButton } from "../components/IconButton";
@@ -18,14 +18,14 @@ export const CreateReviewScreen: React.FC<Props> = ({
 }: Props) => {
   const { shop } = route.params;
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     navigation.setOptions({
       title: shop.name,
       headerLeft: () => (
         <IconButton onPress={() => navigation.goBack()} name="x" />
       ),
     });
-  }, [navigation, shop]);
+  }, [shop]);
 
   return (
     <SafeAreaView style={styles.container}>
