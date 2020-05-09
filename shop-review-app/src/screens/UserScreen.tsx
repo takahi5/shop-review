@@ -1,5 +1,7 @@
 import React from "react";
 import { StyleSheet, SafeAreaView, Text } from "react-native";
+/* components */
+import { Form } from "../components/Form";
 /* types */
 import { StackNavigationProp } from "@react-navigation/stack";
 import { RootStackParamList } from "../types/navigation";
@@ -13,7 +15,7 @@ type Props = {
 export const UserScreen: React.FC<Props> = ({ navigation, route }: Props) => {
   return (
     <SafeAreaView style={styles.container}>
-      <Text>User Screen</Text>
+      <Form value={""} onChangeText={() => {}} label="名前" />
     </SafeAreaView>
   );
 };
@@ -22,7 +24,5 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
   },
 });
