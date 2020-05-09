@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useContext } from "react";
-import { StyleSheet, SafeAreaView, View, Image } from "react-native";
+import { StyleSheet, SafeAreaView, View, Image, Alert } from "react-native";
 /* components */
 import { IconButton } from "../components/IconButton";
 import { TextArea } from "../components/TextArea";
@@ -53,6 +53,11 @@ export const CreateReviewScreen: React.FC<Props> = ({
   };
 
   const onSubmit = async () => {
+    if (!text || !imageUri) {
+      Alert.alert("レビューまたは画像がありません");
+      return;
+    }
+
     setLoading(true);
 
     // documentのidを先に取得
