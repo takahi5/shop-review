@@ -4,6 +4,7 @@ import { StyleSheet, SafeAreaView, Text } from "react-native";
 import { IconButton } from "../components/IconButton";
 import { TextArea } from "../components/TextArea";
 import { StarInput } from "../components/StarInput";
+import { Button } from "../components/Button";
 /* types */
 import { StackNavigationProp } from "@react-navigation/stack";
 import { RootStackParamList } from "../types/navigation";
@@ -31,6 +32,8 @@ export const CreateReviewScreen: React.FC<Props> = ({
     });
   }, [shop]);
 
+  const onSubmit = () => {};
+
   return (
     <SafeAreaView style={styles.container}>
       <TextArea
@@ -41,6 +44,7 @@ export const CreateReviewScreen: React.FC<Props> = ({
         label="レビュー"
       />
       <StarInput score={score} onChangeScore={(value) => setScore(value)} />
+      <Button text="レビューを投稿する" onPress={onSubmit} />
     </SafeAreaView>
   );
 };
