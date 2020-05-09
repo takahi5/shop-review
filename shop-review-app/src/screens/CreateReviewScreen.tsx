@@ -3,6 +3,7 @@ import { StyleSheet, SafeAreaView, Text } from "react-native";
 /* components */
 import { IconButton } from "../components/IconButton";
 import { TextArea } from "../components/TextArea";
+import { StarInput } from "../components/StarInput";
 /* types */
 import { StackNavigationProp } from "@react-navigation/stack";
 import { RootStackParamList } from "../types/navigation";
@@ -19,6 +20,7 @@ export const CreateReviewScreen: React.FC<Props> = ({
 }: Props) => {
   const { shop } = route.params;
   const [text, setText] = useState<string>("");
+  const [score, setScore] = useState<number>(3);
 
   useEffect(() => {
     navigation.setOptions({
@@ -38,6 +40,7 @@ export const CreateReviewScreen: React.FC<Props> = ({
         }}
         label="レビュー"
       />
+      <StarInput score={score} onChangeScore={(value) => setScore(value)} />
     </SafeAreaView>
   );
 };
