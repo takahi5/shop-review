@@ -1,8 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { StyleSheet, SafeAreaView, Text } from "react-native";
 /* components */
 import { Form } from "../components/Form";
 import { Button } from "../components/Button";
+/* contexts */
+import { UserContext } from "../contexts/userContext";
 /* types */
 import { StackNavigationProp } from "@react-navigation/stack";
 import { RootStackParamList } from "../types/navigation";
@@ -14,7 +16,8 @@ type Props = {
 };
 
 export const UserScreen: React.FC<Props> = ({ navigation, route }: Props) => {
-  const [name, setName] = useState<string>("");
+  const { user } = useContext(UserContext);
+  const [name, setName] = useState<string>(user.name);
 
   return (
     <SafeAreaView style={styles.container}>
