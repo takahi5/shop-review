@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useContext } from "react";
-import { StyleSheet, SafeAreaView, View } from "react-native";
+import { StyleSheet, SafeAreaView, View, Image } from "react-native";
 /* components */
 import { IconButton } from "../components/IconButton";
 import { TextArea } from "../components/TextArea";
@@ -10,6 +10,8 @@ import firebase from "firebase";
 import { addReview } from "../lib/firebase";
 /*contexts*/
 import { UserContext } from "../contexts/userContext";
+/* lib */
+import { pickImage } from "../lib/image-picker";
 /* types */
 import { StackNavigationProp } from "@react-navigation/stack";
 import { RootStackParamList } from "../types/navigation";
@@ -29,6 +31,7 @@ export const CreateReviewScreen: React.FC<Props> = ({
   const [text, setText] = useState<string>("");
   const [score, setScore] = useState<number>(3);
   const [loading, setLoading] = useState<boolean>(false);
+  const [imageUri, setImageUri] = useState<string>("");
   const { user } = useContext(UserContext);
 
   useEffect(() => {
@@ -39,6 +42,11 @@ export const CreateReviewScreen: React.FC<Props> = ({
       ),
     });
   }, [shop]);
+
+  const onPickImage = async () => {
+    const uri = await pickImage();
+    setImageUri(uri);
+  };
 
   const onSubmit = async () => {
     setLoading(true);
@@ -73,7 +81,8 @@ export const CreateReviewScreen: React.FC<Props> = ({
         placeholder="レビューを書いて下さい"
       />
       <View style={styles.photoContainer}>
-        <IconButton onPress={() => {}} name="camera" color="gray" />
+        <IconButton onPress={onPickImage} name="camera" color="gray" />
+        {imageUri && <Image source={{ uri: imageUri }} style={styles.image} />}
       </View>
       <Button text="レビューを投稿する" onPress={onSubmit} />
       <Loading visible={loading} />
@@ -87,6 +96,11 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
   },
   photoContainer: {
+    margin: 8,
+  },
+  image: {
+    width: 100,
+    height: 100,
     margin: 8,
   },
 });
