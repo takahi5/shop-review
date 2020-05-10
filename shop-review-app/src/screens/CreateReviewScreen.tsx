@@ -70,9 +70,11 @@ export const CreateReviewScreen: React.FC<Props> = ({
     // firestoreに保存する
     const review = {
       user: {
+        id: user.id,
         name: user.name,
       },
       shop: {
+        id: shop.id,
         name: shop.name,
       },
       text,

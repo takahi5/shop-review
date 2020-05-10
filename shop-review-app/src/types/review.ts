@@ -1,10 +1,12 @@
 import firebase from "firebase";
 
 type UserRef = {
+  id: string;
   name: string;
 };
 
 type ShopRef = {
+  id: string;
   name: string;
 };
 
