@@ -1,14 +1,16 @@
 import React, { useEffect, useState, useContext, useCallback } from "react";
-import { StyleSheet, SafeAreaView, View, Image } from "react-native";
+import { StyleSheet, SafeAreaView, View, Image, Alert } from "react-native";
 import firebase from "firebase";
-import { addReview } from "../lib/firebase";
+import { createReviewRef, uploadImage } from "../lib/firebase";
 import { pickImage } from "../lib/image-picker";
 import { UserContext } from "../contexts/userContext";
+import { getExtention } from "../utils/file";
 /* components */
 import { IconButton } from "../components/IconButton";
 import { TextArea } from "../components/TextArea";
 import { StarInput } from "../components/StarInput";
 import { Button } from "../components/Button";
+import { Loading } from "../components/Loading";
 /* types */
 import { StackNavigationProp } from "@react-navigation/stack";
 import { RootStackParamList } from "../types/navigation";
@@ -28,6 +30,7 @@ export const CreateReviewScreen: React.FC<Props> = ({
   const [text, setText] = useState<string>("");
   const [score, setScore] = useState<number>(3);
   const [imageUri, setImageUri] = useState<string>("");
+  const [loading, setLoading] = useState<boolean>(false);
   const { user } = useContext(UserContext);
 
   useEffect(() => {
@@ -40,6 +43,20 @@ export const CreateReviewScreen: React.FC<Props> = ({
   }, [shop]);
 
   const onSubmit = async () => {
+    if (!text || !imageUri) {
+      Alert.alert("レビューまたは画像がありません");
+      return;
+    }
+
+    setLoading(true);
+    // documentのIDを先に取得
+    const reviewDocRef = await createReviewRef(shop.id);
+    // storageのpathを決定
+    const ext = getExtention(imageUri);
+    const storagePath = `reviews/${reviewDocRef.id}.${ext}`;
+    // 画像をstorageにアップロード
+    const downloadUrl = await uploadImage(imageUri, storagePath);
+    // reviewドキュメントを作る
     const review = {
       user: {
         name: user.name,
@@ -51,10 +68,13 @@ export const CreateReviewScreen: React.FC<Props> = ({
       },
       text,
       score,
+      imageUrl: downloadUrl,
       updatedAt: firebase.firestore.Timestamp.now(),
       createdAt: firebase.firestore.Timestamp.now(),
     } as Review;
-    await addReview(shop.id, review);
+    await reviewDocRef.set(review);
+    setLoading(false);
+    navigation.goBack();
   };
 
   const onPickImage = async () => {
@@ -77,6 +97,7 @@ export const CreateReviewScreen: React.FC<Props> = ({
         )}
       </View>
       <Button text="レビューを投稿する" onPress={onSubmit} />
+      <Loading visible={loading} />
     </SafeAreaView>
   );
 };
