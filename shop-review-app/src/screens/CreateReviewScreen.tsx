@@ -60,6 +60,7 @@ export const CreateReviewScreen: React.FC<Props> = ({
     const downloadUrl = await uploadImage(imageUri, storagePath);
     // reviewドキュメントを作る
     const review = {
+      id: reviewDocRef.id,
       user: {
         name: user.name,
         id: user.id,

@@ -1,9 +1,9 @@
 import * as ImagePicker from "expo-image-picker";
 import Constants from "expo-constants";
 
-const getCamraRollPermission = async () => {
+const getCameraRollPermission = async () => {
   if (Constants.platform.ios) {
-    const { status } = await ImagePicker.requestCameraPermissionsAsync();
+    const { status } = await ImagePicker.getCameraRollPermissionsAsync();
     if (status !== "granted") {
       alert("画像を選択するためにはカメラロールの許可が必要です");
     }
@@ -11,10 +11,10 @@ const getCamraRollPermission = async () => {
 };
 
 export const pickImage = async () => {
-  // パーミッション取得
-  await getCamraRollPermission();
+  // パーミッションを取得
+  await getCameraRollPermission();
   // ImagePicker起動
-  let result = await ImagePicker.launchImageLibraryAsync({
+  const result = await ImagePicker.launchImageLibraryAsync({
     mediaTypes: ImagePicker.MediaTypeOptions.Images,
     allowsEditing: false,
   });
