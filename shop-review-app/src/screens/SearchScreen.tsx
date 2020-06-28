@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useContext } from "react";
-import { StyleSheet, SafeAreaView, FlatList } from "react-native";
+import { StyleSheet, SafeAreaView, TextInput } from "react-native";
 import { StackNavigationProp } from "@react-navigation/stack/lib/typescript/src/types";
 import { RouteProp } from "@react-navigation/native";
 import { RootStackParamList } from "../types/navigation";
@@ -11,7 +11,22 @@ type Props = {
 };
 
 export const SearchScreen: React.FC<Props> = ({ navigation, route }: Props) => {
-  return <SafeAreaView style={styles.container}></SafeAreaView>;
+  const [keyword, setKeyword] = useState<string>();
+
+  const onChangeText = (text: string) => {
+    setKeyword(text);
+  };
+
+  return (
+    <SafeAreaView style={styles.container}>
+      <TextInput
+        style={styles.input}
+        onChangeText={onChangeText}
+        value={keyword}
+        placeholder="検索キーワード"
+      />
+    </SafeAreaView>
+  );
 };
 
 const styles = StyleSheet.create({
@@ -19,5 +34,14 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#fff",
     justifyContent: "flex-start",
+  },
+  input: {
+    height: 50,
+    borderColor: "#999",
+    borderWidth: 1,
+    borderRadius: 25,
+    paddingHorizontal: 20,
+    fontSize: 18,
+    margin: 16,
   },
 });
