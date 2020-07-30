@@ -38,6 +38,7 @@ const styles = StyleSheet.create({
   leftContainer: {
     flexDirection: "column",
     justifyContent: "space-between",
+    flex: 1,
   },
   rightContainer: {},
   image: {
