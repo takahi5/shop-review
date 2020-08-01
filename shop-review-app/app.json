@@ -22,18 +22,18 @@
     },
     "extra": {
       "firebase": {
-        "apiKey": "AIzaSyBnXh2nCYZddU_OYKEipYhYNZF61P9CMxk",
-        "authDomain": "shop-review-dc102.firebaseapp.com",
-        "databaseURL": "https://shop-review-dc102.firebaseio.com",
-        "projectId": "shop-review-dc102",
-        "storageBucket": "shop-review-dc102.appspot.com",
-        "messagingSenderId": "294248723949",
-        "appId": "1:294248723949:web:a38d94a4650cbc296fa3e4",
-        "measurementId": "G-RNJWD24YDV"
+        "apiKey": "your-api-key",
+        "authDomain": "your-app.firebaseapp.com",
+        "databaseURL": "https://your-app.firebaseio.com",
+        "projectId": "your-app",
+        "storageBucket": "your-app.appspot.com",
+        "messagingSenderId": "your-messageging-sender-id",
+        "appId": "your-app-id",
+        "measurementId": "your-measurement-id"
       },
       "algolia": {
-        "appId": "CBN7OF7GYL",
-        "searchApiKey": "28c34db393564572cb171dd8dfb6fc8f"
+        "appId": "your-app-id",
+        "searchApiKey": "your-search-api-key"
       }
     }
   }
