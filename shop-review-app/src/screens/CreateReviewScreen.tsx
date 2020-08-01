@@ -1,11 +1,11 @@
-import React, { useEffect, useState, useContext, useCallback } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { StyleSheet, SafeAreaView, View, Image, Alert } from "react-native";
 import firebase from "firebase";
 import { createReviewRef, uploadImage } from "../lib/firebase";
 import { pickImage } from "../lib/image-picker";
 import { UserContext } from "../contexts/userContext";
 import { ReviewsContext } from "../contexts/reviewsContext";
-import { getExtention } from "../utils/file";
+import { getExtension } from "../utils/file";
 /* components */
 import { IconButton } from "../components/IconButton";
 import { TextArea } from "../components/TextArea";
@@ -54,7 +54,7 @@ export const CreateReviewScreen: React.FC<Props> = ({
     // documentのIDを先に取得
     const reviewDocRef = await createReviewRef(shop.id);
     // storageのpathを決定
-    const ext = getExtention(imageUri);
+    const ext = getExtension(imageUri);
     const storagePath = `reviews/${reviewDocRef.id}.${ext}`;
     // 画像をstorageにアップロード
     const downloadUrl = await uploadImage(imageUri, storagePath);

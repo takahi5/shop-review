@@ -1,16 +1,15 @@
-import React, { useEffect, useState, useContext } from "react";
+import React, { useEffect, useContext } from "react";
 import { StyleSheet, SafeAreaView, FlatList } from "react-native";
 import { getReviews } from "../lib/firebase";
 import { ReviewsContext } from "../contexts/reviewsContext";
 /* components */
 import { ShopDetail } from "../components/ShopDetail";
-import { FloatingActionButton } from "../components/FlotingActionButton";
+import { FloatingActionButton } from "../components/FloatingActionButton";
 import { ReviewItem } from "../components/ReviewItem";
 /* types */
 import { RouteProp } from "@react-navigation/native";
 import { RootStackParamList } from "../types/navigation";
 import { StackNavigationProp } from "@react-navigation/stack";
-import { Review } from "../types/review";
 
 type Props = {
   navigation: StackNavigationProp<RootStackParamList, "Shop">;

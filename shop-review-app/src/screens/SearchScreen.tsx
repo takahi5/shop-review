@@ -1,11 +1,5 @@
-import React, { useEffect, useState, useContext } from "react";
-import {
-  StyleSheet,
-  SafeAreaView,
-  TextInput,
-  FlatList,
-  Text,
-} from "react-native";
+import React, { useState } from "react";
+import { StyleSheet, SafeAreaView, TextInput, FlatList } from "react-native";
 import { StackNavigationProp } from "@react-navigation/stack/lib/typescript/src/types";
 import { RouteProp } from "@react-navigation/native";
 import { RootStackParamList } from "../types/navigation";
