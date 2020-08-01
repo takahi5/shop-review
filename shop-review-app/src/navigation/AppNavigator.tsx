@@ -1,8 +1,8 @@
-import React, { useCallback, useContext } from "react";
+import React, { useContext } from "react";
 import { NavigationContainer } from "@react-navigation/native";
-/* navigators */
+/* navigator */
 import { MainTabNavigator } from "./MainTabNavigator";
-/* screents */
+/* screens */
 import { AuthScreen } from "../screens/AuthScreen";
 /* contexts */
 import { UserContext } from "../contexts/userContext";

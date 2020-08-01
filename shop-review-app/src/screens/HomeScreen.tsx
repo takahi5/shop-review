@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { StyleSheet, FlatList, SafeAreaView } from "react-native";
+import { StyleSheet, FlatList, View, SafeAreaView } from "react-native";
 /* lib */
 import { getShops } from "../lib/firebase";
 /* components */
@@ -13,7 +13,7 @@ type Props = {
   navigation: StackNavigationProp<RootStackParamList, "Home">;
 };
 
-export const HomeScreen: React.FC<Props> = ({ navigation }: Props) => {
+export const HomeScreen = ({ navigation }: Props) => {
   const [shops, setShops] = useState<Shop[]>([]);
 
   useEffect(() => {

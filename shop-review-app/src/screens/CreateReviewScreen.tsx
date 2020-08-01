@@ -1,20 +1,17 @@
-import React, { useEffect, useState, useContext } from "react";
+import React, { useEffect, useState, useContext, useCallback } from "react";
 import { StyleSheet, SafeAreaView, View, Image, Alert } from "react-native";
+import firebase from "firebase";
+import { createReviewRef, uploadImage } from "../lib/firebase";
+import { pickImage } from "../lib/image-picker";
+import { UserContext } from "../contexts/userContext";
+import { ReviewsContext } from "../contexts/reviewsContext";
+import { getExtention } from "../utils/file";
 /* components */
 import { IconButton } from "../components/IconButton";
 import { TextArea } from "../components/TextArea";
 import { StarInput } from "../components/StarInput";
 import { Button } from "../components/Button";
 import { Loading } from "../components/Loading";
-import firebase from "firebase";
-import { createReviewRef, uploadImage } from "../lib/firebase";
-/*contexts*/
-import { UserContext } from "../contexts/userContext";
-import { ReviewsContext } from "../contexts/reviewsContext";
-/* lib */
-import { pickImage } from "../lib/image-picker";
-/* util */
-import { getExtention } from "../utils/file";
 /* types */
 import { StackNavigationProp } from "@react-navigation/stack";
 import { RootStackParamList } from "../types/navigation";
@@ -33,8 +30,8 @@ export const CreateReviewScreen: React.FC<Props> = ({
   const { shop } = route.params;
   const [text, setText] = useState<string>("");
   const [score, setScore] = useState<number>(3);
-  const [loading, setLoading] = useState<boolean>(false);
   const [imageUri, setImageUri] = useState<string>("");
+  const [loading, setLoading] = useState<boolean>(false);
   const { user } = useContext(UserContext);
   const { reviews, setReviews } = useContext(ReviewsContext);
 
@@ -42,15 +39,10 @@ export const CreateReviewScreen: React.FC<Props> = ({
     navigation.setOptions({
       title: shop.name,
       headerLeft: () => (
-        <IconButton onPress={() => navigation.goBack()} name="x" />
+        <IconButton name="x" onPress={() => navigation.goBack()} />
       ),
     });
   }, [shop]);
-
-  const onPickImage = async () => {
-    const uri = await pickImage();
-    setImageUri(uri);
-  };
 
   const onSubmit = async () => {
     if (!text || !imageUri) {
@@ -59,23 +51,23 @@ export const CreateReviewScreen: React.FC<Props> = ({
     }
 
     setLoading(true);
-
-    // documentのidを先に取得
+    // documentのIDを先に取得
     const reviewDocRef = await createReviewRef(shop.id);
     // storageのpathを決定
     const ext = getExtention(imageUri);
     const storagePath = `reviews/${reviewDocRef.id}.${ext}`;
     // 画像をstorageにアップロード
     const downloadUrl = await uploadImage(imageUri, storagePath);
-    // firestoreに保存する
+    // reviewドキュメントを作る
     const review = {
+      id: reviewDocRef.id,
       user: {
-        id: user.id,
         name: user.name,
+        id: user.id,
       },
       shop: {
-        id: shop.id,
         name: shop.name,
+        id: shop.id,
       },
       text,
       score,
@@ -84,7 +76,6 @@ export const CreateReviewScreen: React.FC<Props> = ({
       createdAt: firebase.firestore.Timestamp.now(),
     } as Review;
     await reviewDocRef.set(review);
-
     // レビュー一覧に即時反映する
     setReviews([review, ...reviews]);
 
@@ -92,19 +83,21 @@ export const CreateReviewScreen: React.FC<Props> = ({
     navigation.goBack();
   };
 
+  const onPickImage = async () => {
+    const uri = await pickImage();
+    setImageUri(uri);
+  };
   return (
     <SafeAreaView style={styles.container}>
       <StarInput score={score} onChangeScore={(value) => setScore(value)} />
       <TextArea
         value={text}
-        onChangeText={(value) => {
-          setText(value);
-        }}
+        onChangeText={(value) => setText(value)}
         label="レビュー"
         placeholder="レビューを書いて下さい"
       />
       <View style={styles.photoContainer}>
-        <IconButton onPress={onPickImage} name="camera" color="gray" />
+        <IconButton name="camera" onPress={onPickImage} color="#ccc" />
         {!!imageUri && (
           <Image source={{ uri: imageUri }} style={styles.image} />
         )}

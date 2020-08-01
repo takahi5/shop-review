@@ -1,6 +1,5 @@
 import React from "react";
 import { View, StyleSheet, Text, Image } from "react-native";
-import moment from "moment";
 /* components */
 import { Stars } from "../components/Stars";
 /* types */
@@ -10,18 +9,16 @@ type Props = {
   review: Review;
 };
 
-export const ReviewItem: React.FC<Props> = ({ review }: Props) => {
-  const createdAt = moment(review.createdAt.toDate()).format("YYYY/M/D");
+export const SearchReviewItem: React.FC<Props> = ({ review }: Props) => {
   return (
     <View style={styles.container}>
       <View style={styles.leftContainer}>
+        <Text style={styles.shopText}>{review.shop.name}</Text>
         <View>
           <Stars score={review.score} starSize={16} textSize={12} />
           <Text style={styles.reviewText}>{review.text}</Text>
         </View>
-        <Text
-          style={styles.nameText}
-        >{`${review.user.name}   ${createdAt}`}</Text>
+        <Text style={styles.nameText}>by {review.user.name}</Text>
       </View>
       <View style={styles.rightContainer}>
         <Image style={styles.image} source={{ uri: review.imageUrl }} />
@@ -45,12 +42,16 @@ const styles = StyleSheet.create({
     width: 100,
     height: 100,
   },
+  shopText: {
+    fontSize: 16,
+    fontWeight: "bold",
+    color: "#000",
+  },
   reviewText: {
     marginTop: 4,
     color: "#000",
   },
   nameText: {
     color: "#888",
-    fontSize: 12,
   },
 });

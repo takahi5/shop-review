@@ -14,7 +14,7 @@ export const TextArea: React.FC<Props> = ({
   onChangeText,
   label,
   height,
-  placeholder = "",
+  placeholder,
 }: Props) => {
   return (
     <View style={[styles.container, !!height && { height }]}>

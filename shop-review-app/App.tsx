@@ -1,9 +1,7 @@
 import React, { useState } from "react";
 import { AppNavigator } from "./src/navigation/AppNavigator";
-/* contexts */
 import { UserContext } from "./src/contexts/userContext";
 import { ReviewsContext } from "./src/contexts/reviewsContext";
-/* types  */
 import { User } from "./src/types/user";
 import { Review } from "./src/types/review";
 

@@ -30,6 +30,10 @@
         "messagingSenderId": "294248723949",
         "appId": "1:294248723949:web:a38d94a4650cbc296fa3e4",
         "measurementId": "G-RNJWD24YDV"
+      },
+      "algolia": {
+        "appId": "CBN7OF7GYL",
+        "searchApiKey": "28c34db393564572cb171dd8dfb6fc8f"
       }
     }
   }

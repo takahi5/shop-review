@@ -1,16 +1,15 @@
 import React, { useEffect, useState, useContext } from "react";
 import { StyleSheet, SafeAreaView, FlatList } from "react-native";
 import { getReviews } from "../lib/firebase";
+import { ReviewsContext } from "../contexts/reviewsContext";
 /* components */
 import { ShopDetail } from "../components/ShopDetail";
-import { FloatingActionButton } from "../components/FloatingActionButton";
+import { FloatingActionButton } from "../components/FlotingActionButton";
 import { ReviewItem } from "../components/ReviewItem";
-/* contexts */
-import { ReviewsContext } from "../contexts/reviewsContext";
 /* types */
-import { StackNavigationProp } from "@react-navigation/stack";
 import { RouteProp } from "@react-navigation/native";
 import { RootStackParamList } from "../types/navigation";
+import { StackNavigationProp } from "@react-navigation/stack";
 import { Review } from "../types/review";
 
 type Props = {
@@ -23,9 +22,7 @@ export const ShopScreen: React.FC<Props> = ({ navigation, route }: Props) => {
   const { reviews, setReviews } = useContext(ReviewsContext);
 
   useEffect(() => {
-    navigation.setOptions({
-      title: shop.name,
-    });
+    navigation.setOptions({ title: shop.name });
 
     const fetchReviews = async () => {
       const reviews = await getReviews(shop.id);
@@ -39,10 +36,8 @@ export const ShopScreen: React.FC<Props> = ({ navigation, route }: Props) => {
       <FlatList
         ListHeaderComponent={<ShopDetail shop={shop} />}
         data={reviews}
-        renderItem={({ item }: { item: Review }) => (
-          <ReviewItem review={item} />
-        )}
-        keyExtractor={(item: Review) => item.id}
+        renderItem={({ item }) => <ReviewItem review={item} />}
+        keyExtractor={(item) => item.id}
       />
       <FloatingActionButton
         iconName="plus"

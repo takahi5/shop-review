@@ -19,7 +19,7 @@ export const getShops = async () => {
       .orderBy("score", "desc")
       .get();
     const shops = snapshot.docs.map(
-      (doc) => ({ ...doc.data(), id: doc.id } as Shop),
+      (doc) => ({ ...doc.data(), id: doc.id } as Shop)
     );
     return shops;
   } catch (err) {
@@ -29,8 +29,8 @@ export const getShops = async () => {
 };
 
 export const signin = async () => {
-  const userCredential = await firebase.auth().signInAnonymously();
-  const { uid } = userCredential.user;
+  const userCredintial = await firebase.auth().signInAnonymously();
+  const { uid } = userCredintial.user;
   const userDoc = await firebase.firestore().collection("users").doc(uid).get();
   if (!userDoc.exists) {
     await firebase.firestore().collection("users").doc(uid).set(initialUser);
@@ -60,10 +60,10 @@ export const createReviewRef = async (shopId: string) => {
 };
 
 export const uploadImage = async (uri: string, path: string) => {
-  // uriをblobに変換
+  // uriをblogに変換
   const localUri = await fetch(uri);
   const blob = await localUri.blob();
-  // storegaにアップロード
+  // storageにupload
   const ref = firebase.storage().ref().child(path);
 
   let downloadUrl = "";
@@ -71,7 +71,7 @@ export const uploadImage = async (uri: string, path: string) => {
     await ref.put(blob);
     downloadUrl = await ref.getDownloadURL();
   } catch (err) {
-    console.log(err);
+    console.log(OverconstrainedError);
   }
   return downloadUrl;
 };
@@ -85,6 +85,6 @@ export const getReviews = async (shopId: string) => {
     .orderBy("createdAt", "desc")
     .get();
   return reviewDocs.docs.map(
-    (doc) => ({ ...doc.data(), id: doc.id } as Review),
+    (doc) => ({ ...doc.data(), id: doc.id } as Review)
   );
 };

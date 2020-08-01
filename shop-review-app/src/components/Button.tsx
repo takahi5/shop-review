@@ -1,11 +1,23 @@
 import React from "react";
 import {
-  View,
   StyleSheet,
   TouchableOpacity,
   Text,
   GestureResponderEvent,
 } from "react-native";
+
+type Props = {
+  onPress: (event: GestureResponderEvent) => void;
+  text: string;
+};
+
+export const Button: React.FC<Props> = ({ onPress, text }: Props) => {
+  return (
+    <TouchableOpacity style={styles.container} onPress={onPress}>
+      <Text style={styles.text}>{text}</Text>
+    </TouchableOpacity>
+  );
+};
 
 const styles = StyleSheet.create({
   container: {
@@ -20,16 +32,3 @@ const styles = StyleSheet.create({
     color: "#fff",
   },
 });
-
-type Props = {
-  onPress: (event: GestureResponderEvent) => void;
-  text: string;
-};
-
-export const Button: React.FC<Props> = ({ onPress, text }: Props) => {
-  return (
-    <TouchableOpacity style={styles.container} onPress={onPress}>
-      <Text style={styles.text}>{text}</Text>
-    </TouchableOpacity>
-  );
-};

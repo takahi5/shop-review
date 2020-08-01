@@ -1,7 +1,7 @@
 import React, { useState, useContext } from "react";
 import { StyleSheet, SafeAreaView, Text } from "react-native";
-import { updateUser } from "../lib/firebase";
 import firebase from "firebase";
+import { updateUser } from "../lib/firebase";
 /* components */
 import { Form } from "../components/Form";
 import { Button } from "../components/Button";
@@ -33,7 +33,13 @@ export const UserScreen: React.FC<Props> = ({ navigation, route }: Props) => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <Form value={name} onChangeText={(text) => setName(text)} label="名前" />
+      <Form
+        value={name}
+        onChangeText={(text) => {
+          setName(text);
+        }}
+        label="名前"
+      />
       <Button onPress={onSubmit} text="保存する" />
       <Loading visible={loading} />
     </SafeAreaView>

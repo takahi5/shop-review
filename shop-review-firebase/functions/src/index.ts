@@ -1,26 +1,17 @@
 import * as functions from "firebase-functions";
-import * as admin from "firebase-admin";
+import { User } from "./types/user";
+import admin = require("firebase-admin");
+import algoliasearch from "algoliasearch";
+import { Review } from "./types/review";
+import { Shop } from "./types/shop";
+
+const ALGOLIA_ID = functions.config().algolia.id;
+const ALGOLIA_ADMIN_KEY = functions.config().algolia.key;
+
+const client = algoliasearch(ALGOLIA_ID, ALGOLIA_ADMIN_KEY);
+const index = client.initIndex("reviews");
 
 admin.initializeApp();
-
-type User = {
-  name: string;
-};
-
-type Review = {
-  score: number;
-};
-
-type Shop = {
-  name: string;
-  place: string;
-  score: number;
-  score1: number;
-  score2: number;
-  score3: number;
-  score4: number;
-  score5: number;
-};
 
 exports.onUpdateUser = functions
   .region("asia-northeast1")
@@ -35,6 +26,7 @@ exports.onUpdateUser = functions
         .collectionGroup("reviews")
         .where("user.id", "==", userId)
         .get();
+
       const batch = db.batch();
       snapshot.docs.forEach((reviewDoc) => {
         const user = { ...reviewDoc.data().user, name: newUser.name };
@@ -50,7 +42,7 @@ exports.onWriteReview = functions
   .region("asia-northeast1")
   .firestore.document("shops/{shopId}/reviews/{reviewId}")
   .onWrite(async (change, context) => {
-    const { shopId } = context.params;
+    const { shopId, reviewId } = context.params;
     const review = change.after.data() as Review;
     const db = admin.firestore();
     try {
@@ -93,6 +85,11 @@ exports.onWriteReview = functions
           score3: admin.firestore.FieldValue.increment(1),
           score: aveScore,
         };
+      } else if (review.score === 3) {
+        params = {
+          score3: admin.firestore.FieldValue.increment(1),
+          score: aveScore,
+        };
       } else if (review.score === 4) {
         params = {
           score4: admin.firestore.FieldValue.increment(1),
@@ -105,6 +102,11 @@ exports.onWriteReview = functions
         };
       }
       await shopRef.update(params);
+
+      index.saveObject({
+        objectID: reviewId,
+        ...review,
+      });
     } catch (err) {
       console.log(err);
     }

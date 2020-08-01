@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { View, StyleSheet, Text } from "react-native";
+import React from "react";
+import { View, StyleSheet } from "react-native";
 import { FontAwesome } from "@expo/vector-icons";
 import { TouchableOpacity } from "react-native-gesture-handler";
 
@@ -19,7 +19,8 @@ export const StarInput: React.FC<Props> = ({
   const stars = [1, 2, 3, 4, 5].map((starCount) => (
     <TouchableOpacity
       onPress={() => onChangeScore(starCount)}
-      key={starCount.toString()}>
+      key={starCount.toString()}
+    >
       <FontAwesome
         style={starStyle}
         name={score >= starCount ? "star" : "star-o"}

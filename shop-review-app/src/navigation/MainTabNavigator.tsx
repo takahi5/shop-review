@@ -1,39 +1,51 @@
-import React, { useState } from "react";
+import React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { Feather } from "@expo/vector-icons";
-/* navigators */
-import { HomeStackNavigator } from "./HomeStackNavigator";
 /* screens */
+import { HomeStackNavigator } from "./HomeStackNavigator";
+import { SearchScreen } from "../screens/SearchScreen";
 import { UserScreen } from "../screens/UserScreen";
-/* types */
-import { RootStackParamList } from "../types/navigation";
 
-const Tab = createBottomTabNavigator<RootStackParamList>();
-
-const screenOptions = ({ route }) => ({
-  tabBarIcon: ({ focused, color, size }) => {
-    let iconName;
-
-    if (route.name === "Home") {
-      iconName = "home";
-    } else if (route.name === "User") {
-      iconName = "user";
-    }
-
-    return <Feather name={iconName} size={size} color={color} />;
-  },
-});
-
-const tabBarOptions = {
-  activeTintColor: "#900",
-  inactiveTintColor: "#999",
-};
+const Tab = createBottomTabNavigator();
 
 export const MainTabNavigator = () => {
   return (
-    <Tab.Navigator screenOptions={screenOptions} tabBarOptions={tabBarOptions}>
-      <Tab.Screen name="Home" component={HomeStackNavigator} />
-      <Tab.Screen name="User" component={UserScreen} />
+    <Tab.Navigator
+      tabBarOptions={{
+        activeTintColor: "#900",
+        inactiveTintColor: "#999",
+      }}
+    >
+      <Tab.Screen
+        name="Home"
+        component={HomeStackNavigator}
+        options={{
+          tabBarLabel: "Home",
+          tabBarIcon: ({ color, size }) => (
+            <Feather name="home" color={color} size={size} />
+          ),
+        }}
+      />
+      <Tab.Screen
+        name="Search"
+        component={SearchScreen}
+        options={{
+          tabBarLabel: "Search",
+          tabBarIcon: ({ color, size }) => (
+            <Feather name="search" color={color} size={size} />
+          ),
+        }}
+      />
+      <Tab.Screen
+        name="User"
+        component={UserScreen}
+        options={{
+          tabBarLabel: "User",
+          tabBarIcon: ({ color, size }) => (
+            <Feather name="user" color={color} size={size} />
+          ),
+        }}
+      />
     </Tab.Navigator>
   );
 };
