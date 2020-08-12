@@ -1,6 +1,8 @@
 # shop-review
 
-Udemy講座**「React NativeとFirebaseで作るiOS/Androidアプリ」**のサンプルコードです。
+![udemy-firebase-banner_400](https://user-images.githubusercontent.com/7026785/90077348-e0f2b480-dd3c-11ea-99e7-f0826ceeb091.png)
+
+Udemy講座 **「React NativeとFirebaseで作るiOS/Androidアプリ」** のサンプルコードです。
 
 (2020年8月公開予定)
 
