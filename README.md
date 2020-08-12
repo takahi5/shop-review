@@ -1,6 +1,10 @@
 # shop-review
 
+Udemy講座**「React NativeとFirebaseで作るiOS/Androidアプリ」**のサンプルコードです。
 
+(2020年8月公開予定)
+
+## セクション3で使うFirestoreサンプルデータ
 
 ドキュメントID | name (string) | place (string) | imageUrl (string) | score (number) |
 -- | -- | -- | -- | -- |
