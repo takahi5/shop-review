@@ -4,6 +4,14 @@ Udemy講座**「React NativeとFirebaseで作るiOS/Androidアプリ」**のサ�
 
 (2020年8月公開予定)
 
+## 構成
+
+```
+├── assets  // サンプルデータで使う画像
+├── shop-review-app  // React Nativeのプロジェクト
+└── shop-review-firebase  // Firebase Cloud Function
+```
+
 ## セクション3で使うFirestoreサンプルデータ
 
 ドキュメントID | name (string) | place (string) | imageUrl (string) | score (number) |
