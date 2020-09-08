@@ -10,10 +10,10 @@ type Props = {
 
 export const Stars: React.FC<Props> = ({
   score,
-  starSize,
-  textSize,
+  starSize = 16,
+  textSize = 14,
 }: Props) => {
-  const starStyle = [styles.star, starSize && { fontSize: starSize }];
+  const starStyle = [styles.star, { fontSize: starSize }];
   return (
     <View style={styles.container}>
       <FontAwesome
@@ -36,9 +36,7 @@ export const Stars: React.FC<Props> = ({
         style={starStyle}
         name={score >= 5 ? "star" : score >= 4.5 ? "star-half-o" : "star-o"}
       />
-      <Text style={[styles.scoreText, textSize && { fontSize: textSize }]}>
-        {score}
-      </Text>
+      <Text style={[styles.scoreText, { fontSize: textSize }]}>{score}</Text>
     </View>
   );
 };
@@ -50,11 +48,9 @@ const styles = StyleSheet.create({
   },
   star: {
     marginRight: 4,
-    fontSize: 16,
     color: "#900",
   },
   scoreText: {
-    fontSize: 14,
     color: "#000",
     fontWeight: "bold",
   },
