@@ -1,27 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { StyleSheet, Text, View } from "react-native";
-import * as firebase from "firebase";
-import "firebase/firestore";
-
-if (!firebase.apps.length) {
-  // TODO: 自分のapiKey等を設定する
-  const firebaseConfig = {
-    apiKey: "your apiKey",
-    authDomain: "your authDomain",
-    databaseURL: "your databaseURL",
-    projectId: "your projectId",
-    storageBucket: "your storageBucket",
-    messagingSenderId: "your messagingSenderId",
-    appId: "your appId",
-    measurementId: "your measurementId",
-  };
-  firebase.initializeApp(firebaseConfig);
-}
-
-type Shop = {
-  name: string;
-  place: string;
-};
+/* lib */
+import { getShops } from "./src/lib/firebase";
+/* type */
+import { Shop } from "./src/types/shop";
 
 export default function App() {
   const [shops, setShops] = useState<Shop[]>([]);
@@ -31,8 +13,7 @@ export default function App() {
   }, []);
 
   const getFirebaseItems = async () => {
-    const snapshot = await firebase.firestore().collection("shops").get();
-    const shops = snapshot.docs.map((doc) => doc.data() as Shop);
+    const shops = await getShops();
     setShops(shops);
   };
 
