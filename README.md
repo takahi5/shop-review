@@ -4,7 +4,6 @@
 
 Udemy講座 **「React NativeとFirebaseで作るiOS/Androidアプリ」** のサンプルコードです。
 
-(2020年8月公開予定)
 
 ## 構成
 
