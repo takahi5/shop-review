@@ -7,7 +7,11 @@ import { ShopScreen } from "../screens/ShopScreen";
 const Stack = createStackNavigator();
 
 export const HomeStackNavigator = () => (
-  <Stack.Navigator>
+  <Stack.Navigator
+    screenOptions={{
+      headerTintColor: "#000",
+    }}
+  >
     <Stack.Screen
       name="Home"
       component={HomeScreen}
