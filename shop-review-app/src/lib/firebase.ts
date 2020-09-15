@@ -1,5 +1,6 @@
 import * as firebase from "firebase/app";
 import "firebase/firestore";
+import "firebase/auth";
 import Constants from "expo-constants";
 /* types */
 import { Shop } from "../types/shop";
@@ -16,4 +17,10 @@ export const getShops = async () => {
     .get();
   const shops = snapshot.docs.map((doc) => doc.data() as Shop);
   return shops;
+};
+
+export const signin = async () => {
+  const userCredential = await firebase.auth().signInAnonymously();
+  const { uid } = userCredential.user;
+  console.log(uid);
 };
