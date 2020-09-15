@@ -1,7 +1,9 @@
-import React, { useLayoutEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { StyleSheet, SafeAreaView, Text } from "react-native";
 /* components */
 import { IconButton } from "../components/IconButton";
+import { TextArea } from "../components/TextArea";
+import { StarInput } from "../components/StarInput";
 /* types */
 import { StackNavigationProp } from "@react-navigation/stack";
 import { RootStackParamList } from "../types/navigation";
@@ -17,19 +19,28 @@ export const CreateReviewScreen: React.FC<Props> = ({
   route,
 }: Props) => {
   const { shop } = route.params;
+  const [text, setText] = useState<string>("");
+  const [score, setScore] = useState<number>(3);
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     navigation.setOptions({
       title: shop.name,
       headerLeft: () => (
         <IconButton onPress={() => navigation.goBack()} name="x" />
       ),
     });
-  }, [navigation, shop]);
+  }, [shop]);
 
   return (
     <SafeAreaView style={styles.container}>
-      <Text>New Review Screen</Text>
+      <StarInput score={score} onChangeScore={(value) => setScore(value)} />
+      <TextArea
+        value={text}
+        onChangeText={(value) => {
+          setText(value);
+        }}
+        label="レビュー"
+      />
     </SafeAreaView>
   );
 };
@@ -38,7 +49,5 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
   },
 });
