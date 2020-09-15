@@ -7,11 +7,13 @@ import { StarInput } from "../components/StarInput";
 import { Button } from "../components/Button";
 import { Loading } from "../components/Loading";
 import firebase from "firebase";
-import { addReview } from "../lib/firebase";
+import { createReviewRef, uploadImage } from "../lib/firebase";
 /*contexts*/
 import { UserContext } from "../contexts/userContext";
 /* lib */
 import { pickImage } from "../lib/image-picker";
+/* util */
+import { getExtention } from "../utils/file";
 /* types */
 import { StackNavigationProp } from "@react-navigation/stack";
 import { RootStackParamList } from "../types/navigation";
@@ -50,6 +52,14 @@ export const CreateReviewScreen: React.FC<Props> = ({
 
   const onSubmit = async () => {
     setLoading(true);
+
+    // documentのidを先に取得
+    const reviewDocRef = await createReviewRef(shop.id);
+    // storageのpathを決定
+    const ext = getExtention(imageUri);
+    const storagePath = `reviews/${reviewDocRef.id}.${ext}`;
+    // 画像をstorageにアップロード
+    const downloadUrl = await uploadImage(imageUri, storagePath);
     // firestoreに保存する
     const review = {
       user: {
@@ -60,10 +70,11 @@ export const CreateReviewScreen: React.FC<Props> = ({
       },
       text,
       score,
+      imageUrl: downloadUrl,
       updatedAt: firebase.firestore.Timestamp.now(),
       createdAt: firebase.firestore.Timestamp.now(),
     } as Review;
-    await addReview(shop.id, review);
+    await reviewDocRef.set(review);
 
     setLoading(false);
     navigation.goBack();

@@ -40,16 +40,32 @@ export const signin = async () => {
     } as User;
   }
 };
-
 export const updateUser = async (userId: string, params: any) => {
   await firebase.firestore().collection("users").doc(userId).update(params);
 };
 
-export const addReview = async (shopId: string, review: Review) => {
-  await firebase
+export const createReviewRef = async (shopId: string) => {
+  return await firebase
     .firestore()
     .collection("shops")
     .doc(shopId)
     .collection("reviews")
-    .add(review);
+    .doc();
+};
+
+export const uploadImage = async (uri: string, path: string) => {
+  // uriをblobに変換
+  const localUri = await fetch(uri);
+  const blob = await localUri.blob();
+  // storegaにアップロード
+  const ref = firebase.storage().ref().child(path);
+
+  let downloadUrl = "";
+  try {
+    await ref.put(blob);
+    downloadUrl = await ref.getDownloadURL();
+  } catch (err) {
+    console.log(err);
+  }
+  return downloadUrl;
 };
