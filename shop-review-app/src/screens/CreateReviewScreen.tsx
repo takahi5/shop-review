@@ -69,6 +69,7 @@ export const CreateReviewScreen: React.FC<Props> = ({
           setText(value);
         }}
         label="レビュー"
+        placeholder="レビューを書いて下さい"
       />
       <StarInput score={score} onChangeScore={(value) => setScore(value)} />
       <Button text="レビューを投稿する" onPress={onSubmit} />

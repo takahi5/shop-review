@@ -6,6 +6,7 @@ type Props = {
   value: string;
   label: string;
   height?: number;
+  placeholder?: string;
 };
 
 export const TextArea: React.FC<Props> = ({
@@ -13,6 +14,7 @@ export const TextArea: React.FC<Props> = ({
   onChangeText,
   label,
   height,
+  placeholder = "",
 }: Props) => {
   return (
     <View style={[styles.container, !!height && { height }]}>
@@ -22,6 +24,7 @@ export const TextArea: React.FC<Props> = ({
         onChangeText={(text) => onChangeText(text)}
         value={value}
         multiline={true}
+        placeholder={placeholder}
       />
     </View>
   );
