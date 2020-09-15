@@ -1,15 +1,14 @@
-import React from "react";
+import React, { useCallback, useContext } from "react";
 import { NavigationContainer } from "@react-navigation/native";
 /* navigators */
 import { MainTabNavigator } from "./MainTabNavigator";
-/* screents */
+/* screens */
 import { AuthScreen } from "../screens/AuthScreen";
+/* contexts */
+import { UserContext } from "../contexts/userContext";
 
 export const AppNavigator = () => {
-  // login user
-  // TODO: ログインしたらuserをセットする
-  const user = null;
-  //const user = { id: "123" };
+  const { user } = useContext(UserContext);
 
   return (
     <NavigationContainer>
