@@ -22,3 +22,14 @@ Udemy講座 **「React NativeとFirebaseで作るiOS/Androidアプリ：お店�
 10002 | ピッツア浜松町 | 浜松町 | https://raw.githubusercontent.com/takahi5/shop-review/master/assets/pizza01.jpg | 3.5 |
 10003 | 田町ラーメン | 田町 | https://raw.githubusercontent.com/takahi5/shop-review/master/assets/ramen01.jpg | 4.5 |
 10004 | ビストロ品川 | 品川 | https://raw.githubusercontent.com/takahi5/shop-review/master/assets/meat01.jpg | 2 |
+
+## 各レクチャーの途中のコード
+
+本リポジトリのコードは最終的な完成形になっています。
+
+各レクチャーの途中経過のコードについては、ブランチを切って置いていますので、適宜参考にして下さい。
+
+例：セクション4 AppNavigatorの導入 → https://github.com/takahi5/shop-review/tree/sec4/app-navigator
+
+**ブランチ一覧**    
+https://github.com/takahi5/shop-review/branches/active
