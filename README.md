@@ -8,7 +8,7 @@ Udemy講座 **「React NativeとFirebaseで作るiOS/Androidアプリ：お店�
 ## 構成
 
 ```
-├── assets  // サンプルデータで使う画像
+├── assets  // サンプルデータで使う画像置き場(実際のアプリでは使用しません)
 ├── shop-review-app  // React Nativeのプロジェクト
 └── shop-review-firebase  // Firebase Cloud Function
 ```
