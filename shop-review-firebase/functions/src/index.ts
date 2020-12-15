@@ -1,7 +1,8 @@
 import * as functions from "firebase-functions";
 import { User } from "./types/user";
-import admin = require("firebase-admin");
+import * as admin from "firebase-admin";
 import algoliasearch from "algoliasearch";
+import { Expo, ExpoPushMessage } from "expo-server-sdk";
 import { Review } from "./types/review";
 import { Shop } from "./types/shop";
 
@@ -12,6 +13,8 @@ const client = algoliasearch(ALGOLIA_ID, ALGOLIA_ADMIN_KEY);
 const index = client.initIndex("reviews");
 
 admin.initializeApp();
+
+const expo = new Expo();
 
 exports.onUpdateUser = functions
   .region("asia-northeast1")
@@ -110,4 +113,57 @@ exports.onWriteReview = functions
     } catch (err) {
       console.log(err);
     }
+  });
+
+exports.scheduledFunctionCrontab = functions
+  .region("asia-northeast1")
+  .pubsub.schedule("0 10 * * 1")
+  .timeZone("Asia/Tokyo")
+  .onRun(async (context) => {
+    // userからpushTokenを抽出
+    const snapshot = await admin.firestore().collection("users").get();
+    const pushTokens = snapshot.docs
+      .map((doc) => (doc.data() as User).pushToken)
+      .filter((pushToken) => !!pushToken);
+
+    let messages: ExpoPushMessage[] = [];
+    for (let pushToken of pushTokens) {
+      if (!Expo.isExpoPushToken(pushToken)) {
+        console.error(`Push token ${pushToken} is not a valid Expo push token`);
+        continue;
+      }
+
+      messages.push({
+        to: pushToken,
+        sound: "default",
+        body: "週末に行ったレストランのレビューを書こう♪",
+        data: { withSome: "data" },
+      });
+    }
+
+    let chunks = expo.chunkPushNotifications(messages);
+    let tickets = [];
+
+    // The Expo push notification service accepts batches of notifications so
+    // that you don't need to send 1000 requests to send 1000 notifications. We
+    // recommend you batch your notifications to reduce the number of requests
+    // and to compress them (notifications with similar content will get
+    // compressed).
+    // Send the chunks to the Expo push notification service. There are
+    // different strategies you could use. A simple one is to send one chunk at a
+    // time, which nicely spreads the load out over time:
+    for (let chunk of chunks) {
+      try {
+        let ticketChunk = await expo.sendPushNotificationsAsync(chunk);
+        tickets.push(...ticketChunk);
+        // NOTE: If a ticket contains an error code in ticket.details.error, you
+        // must handle it appropriately. The error codes are listed in the Expo
+        // documentation:
+        // https://docs.expo.io/push-notifications/sending-notifications/#individual-errors
+      } catch (error) {
+        console.error(error);
+      }
+    }
+    console.log(`sent ${pushTokens.length} messages`);
+    return null;
   });
