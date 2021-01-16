@@ -3,6 +3,7 @@ import * as firebase from "firebase";
 export type User = {
   id?: string;
   name: string;
+  pushToken?: string;
   updatedAt: firebase.firestore.Timestamp;
   createdAt: firebase.firestore.Timestamp;
 };

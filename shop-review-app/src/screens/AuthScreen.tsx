@@ -5,7 +5,8 @@ import {
   ActivityIndicator,
   Text,
 } from "react-native";
-import { signin } from "../lib/firebase";
+import { signin, updateUser } from "../lib/firebase";
+import { registerForPushNotificationsAsync } from "../lib/notification";
 import { UserContext } from "../contexts/userContext";
 
 export const AuthScreen: React.FC = () => {
@@ -14,6 +15,13 @@ export const AuthScreen: React.FC = () => {
   useEffect(() => {
     const fetchUser = async () => {
       const user = await signin();
+      // push通知のtokenを取得
+      const pushToken = await registerForPushNotificationsAsync();
+      if (pushToken && user.pushToken !== pushToken) {
+        await updateUser(user.id, { pushToken });
+        user.pushToken = pushToken;
+      }
+
       setUser(user);
     };
     fetchUser();

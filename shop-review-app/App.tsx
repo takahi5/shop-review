@@ -6,7 +6,7 @@ import { User } from "./src/types/user";
 import { Review } from "./src/types/review";
 
 export default function App() {
-  const [user, setUser] = useState<User>();
+  const [user, setUser] = useState<User | null>();
   const [reviews, setReviews] = useState<Review[]>([]);
 
   return (
