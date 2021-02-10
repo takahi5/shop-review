@@ -7,7 +7,6 @@ import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
 import { ThemeProvider } from "@material-ui/styles";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import Drawer from "@material-ui/core/Drawer";
-import Box from "@material-ui/core/Box";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import List from "@material-ui/core/List";
@@ -20,6 +19,7 @@ import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import IconButton from "@material-ui/core/IconButton";
 import LockOpenIcon from "@material-ui/icons/LockOpen";
 import AccountCircleIcon from "@material-ui/icons/AccountCircle";
+import StorefrontIcon from "@material-ui/icons/Storefront";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
@@ -189,6 +189,14 @@ const SideBar: React.FC<SideBarProps> = ({
           </List>
         ) : (
           <List>
+            <Link to={paths.shops} className={classes.link}>
+              <ListItem button>
+                <ListItemIcon>
+                  <StorefrontIcon />
+                </ListItemIcon>
+                <ListItemText primary="Shop一覧" />
+              </ListItem>
+            </Link>
             <Link to={paths.mypage} className={classes.link}>
               <ListItem button>
                 <ListItemIcon>
@@ -201,19 +209,6 @@ const SideBar: React.FC<SideBarProps> = ({
         )}
       </List>
     </Drawer>
-  );
-};
-
-const Copyright = () => {
-  return (
-    <Typography variant="body2" color="textSecondary" align="center">
-      {"Copyright © "}
-      <Link color="inherit" to="/">
-        Awesome Company
-      </Link>{" "}
-      {new Date().getFullYear()}
-      {"."}
-    </Typography>
   );
 };
 
@@ -283,9 +278,6 @@ export const GenericTemplate: React.FC<GenericTemplateProps> = ({
               {title}
             </Typography>
             {children}
-            <Box pt={4}>
-              <Copyright />
-            </Box>
           </Container>
         </main>
       </div>
