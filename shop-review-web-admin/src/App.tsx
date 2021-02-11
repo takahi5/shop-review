@@ -15,6 +15,7 @@ import { paths } from "./constants/paths";
 /* pages */
 import { SignIn } from "./components/pages/SignIn";
 import { ShopList } from "./components/pages/ShopList";
+import { ReviewList } from "./components/pages/ReviewList";
 import { MyPage } from "./components/pages/MyPage";
 /* types */
 import { User } from "./types/user";
@@ -59,6 +60,9 @@ const App: React.FC = () => {
     <UserContext.Provider value={{ user, setUser }}>
       <Router>
         <Switch>
+          <PrivateRoute path={paths.reviews}>
+            <ReviewList />
+          </PrivateRoute>
           <PrivateRoute path={paths.shops}>
             <ShopList />
           </PrivateRoute>

@@ -3,4 +3,5 @@ export const paths = {
   signin: "/signin",
   mypage: "/mypage",
   shops: "/shops",
+  reviews: "/shops/:id/reviews",
 };

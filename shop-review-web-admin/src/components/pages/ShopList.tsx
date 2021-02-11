@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { getShops } from "../../firebase";
+import { Link } from "react-router-dom";
 /* components */
 import {
   TableContainer,
@@ -39,7 +40,9 @@ export const ShopList: React.FC = () => {
           <TableBody>
             {shops.map((shop) => (
               <TableRow key={shop.id}>
-                <TableCell>{shop.name}</TableCell>
+                <TableCell>
+                  <Link to={`/shops/${shop.id}/reviews`}>{shop.name}</Link>
+                </TableCell>
                 <TableCell>{shop.place}</TableCell>
                 <TableCell>{shop.score}</TableCell>
               </TableRow>
