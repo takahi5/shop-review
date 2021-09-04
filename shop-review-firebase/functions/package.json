@@ -15,7 +15,7 @@
   "dependencies": {
     "algoliasearch": "^4.3.0",
     "expo-server-sdk": "^3.6.0",
-    "firebase": "^7.15.3",
+    "firebase": "^8.10.0",
     "firebase-admin": "^8.9.0",
     "firebase-functions": "^3.3.0"
   },
