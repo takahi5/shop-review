@@ -18,7 +18,7 @@
     "expo-image-picker": "~9.2.0",
     "expo-notifications": "~0.8.2",
     "firebase": "7.9.0",
-    "moment": "^2.25.3",
+    "moment": "^2.29.4",
     "react": "16.13.1",
     "react-dom": "16.13.1",
     "react-native": "https://github.com/expo/react-native/archive/sdk-40.0.0.tar.gz",
